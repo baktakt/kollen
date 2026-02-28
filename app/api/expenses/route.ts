@@ -13,7 +13,6 @@ import {
 } from '@/lib/blob';
 import { categorizeExpense } from '@/lib/categorize';
 import { sendBudgetWarning } from '@/lib/email';
-import { CATEGORY_LABELS } from '@/types';
 import type { Category, Expense } from '@/types';
 import { v4 as uuidv4 } from 'uuid';
 
