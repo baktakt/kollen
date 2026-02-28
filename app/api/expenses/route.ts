@@ -13,7 +13,7 @@ import {
 } from '@/lib/blob';
 import { categorizeExpense } from '@/lib/categorize';
 import { sendBudgetWarning } from '@/lib/email';
-import type { Category, Expense } from '@/types';
+import { CATEGORY_LABELS, type Category, type Expense } from '@/types';
 import { v4 as uuidv4 } from 'uuid';
 
 async function requireAuth() {
