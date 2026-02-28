@@ -3,9 +3,13 @@ import { getExpenses, getBudgets, getSettings } from '@/lib/blob';
 import { sendMonthlyReport } from '@/lib/email';
 
 export async function GET(req: NextRequest) {
-  // Verify this is called by Vercel Cron
+  // Verify this is called by Vercel Cron or an authorized client
   const authHeader = req.headers.get('authorization');
-  if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+  const cronHeader = req.headers.get('x-vercel-cron');
+  const cronSecretParam = req.nextUrl.searchParams.get('cron_secret');
+  const hasBearerAuth = authHeader === `Bearer ${process.env.CRON_SECRET}`;
+  const hasVercelCronAuth = !!cronHeader && cronSecretParam === process.env.CRON_SECRET;
+  if (!hasBearerAuth && !hasVercelCronAuth) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
