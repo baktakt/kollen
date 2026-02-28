@@ -56,7 +56,12 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
   }
 
-  const category: Category = providedCategory ?? await categorizeExpense(name);
+  const isValidProvidedCategory =
+    typeof providedCategory === 'string' &&
+    Object.prototype.hasOwnProperty.call(CATEGORY_LABELS, providedCategory);
+  const category: Category = isValidProvidedCategory
+    ? (providedCategory as Category)
+    : await categorizeExpense(name);
 
   const expense: Expense = {
     id: uuidv4(),
