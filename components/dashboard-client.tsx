@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import {
   PieChart, Pie, Cell, Tooltip, ResponsiveContainer,
-  LineChart, Line, XAxis, YAxis, CartesianGrid, Legend,
+  LineChart, Line, XAxis, YAxis, CartesianGrid,
 } from 'recharts';
 import type { Expense, Budget, Category } from '@/types';
 import { CATEGORY_LABELS, CATEGORY_COLORS, CATEGORIES } from '@/types';
