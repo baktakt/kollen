@@ -13,13 +13,28 @@ export async function POST() {
     return NextResponse.json({ error: 'No email configured' }, { status: 400 });
   }
 
-  const resend = new Resend(process.env.RESEND_API_KEY);
-  await resend.emails.send({
-    from: 'Kollen <noreply@kollen.app>',
-    to: settings.reportEmail,
-    subject: 'Kollen — Testmail',
-    html: '<p>Allt fungerar! Din Kollen-installation skickar e-post korrekt.</p>',
-  });
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    return NextResponse.json(
+      { error: 'Email service is not configured' },
+      { status: 500 },
+    );
+  }
 
+  try {
+    const resend = new Resend(apiKey);
+    await resend.emails.send({
+      from: 'Kollen <noreply@kollen.app>',
+      to: settings.reportEmail,
+      subject: 'Kollen — Testmail',
+      html: '<p>Allt fungerar! Din Kollen-installation skickar e-post korrekt.</p>',
+    });
+  } catch (error) {
+    console.error('Failed to send test email via Resend:', error);
+    return NextResponse.json(
+      { error: 'Failed to send test email' },
+      { status: 502 },
+    );
+  }
   return NextResponse.json({ success: true });
 }
