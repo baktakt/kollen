@@ -1,5 +1,5 @@
 import { put, head, del } from '@vercel/blob';
-import type { Expense, CategoryMap, Budget, Settings, WarnLog } from '@/types';
+import type { Expense, CategoryMap, Budget, Settings, WarnLog, BankConnection } from '@/types';
 import { DEFAULT_CATEGORY_MAP } from '@/types';
 
 const BLOB_BASE = 'data';
@@ -121,4 +121,13 @@ export async function getWarnLog(): Promise<WarnLog> {
 
 export async function saveWarnLog(log: WarnLog): Promise<void> {
   await writeBlob(`${BLOB_BASE}/warn-log.json`, log);
+}
+
+// Bank connections
+export async function getBankConnections(): Promise<BankConnection[]> {
+  return readBlob<BankConnection[]>(`${BLOB_BASE}/bank-connections.json`, []);
+}
+
+export async function saveBankConnections(connections: BankConnection[]): Promise<void> {
+  await writeBlob(`${BLOB_BASE}/bank-connections.json`, connections);
 }
