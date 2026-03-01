@@ -32,6 +32,11 @@ function formatSEK(amount: number): string {
   }).format(amount);
 }
 
+export function getFromAddress(): string {
+  const domain = process.env.EMAIL_DOMAIN ?? 'kollen.app';
+  return `Kollen <noreply@${domain}>`;
+}
+
 export async function generateMonthlyNarrative(
   month: string,
   totalSpend: number,
@@ -132,7 +137,7 @@ export async function sendMonthlyReport(
   });
 
   await getResend().emails.send({
-    from: 'Kollen <noreply@kollen.app>',
+    from: getFromAddress(),
     to,
     subject: `Kollen — ${monthLabel}`,
     html,
@@ -170,7 +175,7 @@ export async function sendBudgetWarning(
   `;
 
   await getResend().emails.send({
-    from: 'Kollen <noreply@kollen.app>',
+    from: getFromAddress(),
     to,
     subject: `Kollen — Budgetvarning: ${catLabel}`,
     html,

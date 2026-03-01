@@ -25,6 +25,15 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 To learn more about Next.js, take a look at the following resources:
 
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+
+## Environment Variables
+
+The app relies on a few environment variables, which you can configure in `.env` or via your hosting provider:
+
+- `RESEND_API_KEY` – API key for Resend email service.
+- `NEXTAUTH_URL` – base URL for NextAuth (e.g. https://yourdomain.com).
+- `EMAIL_DOMAIN` – domain used in the `from` address of outgoing mail (defaults to `kollen.app`).
+
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!

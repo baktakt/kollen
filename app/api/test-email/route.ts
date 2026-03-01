@@ -3,6 +3,7 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { getSettings } from '@/lib/blob';
 import { Resend } from 'resend';
+import { getFromAddress } from '@/lib/email';
 
 export async function POST() {
   const session = await getServerSession(authOptions);
@@ -24,7 +25,7 @@ export async function POST() {
   try {
     const resend = new Resend(apiKey);
     await resend.emails.send({
-      from: 'Kollen <noreply@kollen.app>',
+      from: getFromAddress(),
       to: settings.reportEmail,
       subject: 'Kollen — Testmail',
       html: '<p>Allt fungerar! Din Kollen-installation skickar e-post korrekt.</p>',
