@@ -31,18 +31,6 @@ export type Settings = {
   reportDayOfMonth: number;
 };
 
-export type BankConnection = {
-  id: string;
-  institutionId: string;
-  institutionName: string;
-  institutionLogo?: string;
-  requisitionId: string;
-  status: 'pending' | 'linked' | 'expired';
-  createdAt: string;
-  lastSyncAt?: string;
-  accountIds: string[];
-};
-
 export type CategoryMap = Record<string, Category>;
 
 export type WarnLog = Record<string, string>; // "category-YYYY-MM" -> ISO date
